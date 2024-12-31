@@ -26,3 +26,5 @@ RUN conda init bash && \
     conda create --name infinigen python=3.11 -y && \
     conda activate infinigen && \
     pip install -e ".[dev]"
+
+RUN apt-get install -y libsm6 libxext6 libxrender-dev

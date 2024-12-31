@@ -17,7 +17,7 @@ flip_fluids:
 	bash scripts/install/compile_flip_fluids.sh
 
 DOCKER_BUILD_PROGRESS ?= auto
-DOCKER_TAG ?= infinigen_docker_img
+DOCKER_TAG ?= galaxeaaa/infinigen:latest
 
 PWD = $(shell pwd)
 
@@ -57,7 +57,7 @@ docker-run:
 		-e "DISPLAY=$(DISPLAY)" \
 		-e "QT_X11_NO_MITSHM=1" \
 		-v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-		-v $(PWD)/outputs:/opt/infinigen/outputs \
+		-v $(PWD):/opt/infinigen \
 		-e "XAUTHORITY=$(XAUTH)" \
 		-e ROS_IP=127.0.0.1 \
 		--cap-add=SYS_PTRACE \
@@ -69,7 +69,7 @@ docker-run:
 		-e "DISPLAY=$(DISPLAY)" \
 		-e "QT_X11_NO_MITSHM=1" \
 		-v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-		-v $(PWD)/outputs:/opt/infinigen/outputs \
+		-v $(PWD):/opt/infinigen \
 		-e "XAUTHORITY=$(XAUTH)" \
 		-e ROS_IP=127.0.0.1 \
 		--cap-add=SYS_PTRACE \

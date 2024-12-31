@@ -142,6 +142,7 @@ def compose_indoors(output_folder: Path, scene_seed: int, **overrides):
             scene_seed,
             surface.registry,
             task="coarse",
+            
             on_the_fly_asset_folder=output_folder / "assets",
         )
         terrain_mesh = terrain.coarse_terrain()
@@ -215,6 +216,10 @@ def compose_indoors(output_folder: Path, scene_seed: int, **overrides):
             stages["on_floor_freestanding"], state, [cu.variable_room], limits
         )
     ]
+
+    delete_rooms = [os.obj for os in state.objs.values() if t.Semantics.Room in os.tags and os.obj not in solved_rooms]
+    butil.delete(delete_rooms)
+
     solved_bound_points = np.concatenate([butil.bounds(r) for r in solved_rooms])
     solved_bbox = (
         np.min(solved_bound_points, axis=0),
