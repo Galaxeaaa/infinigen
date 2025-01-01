@@ -57,7 +57,8 @@ docker-run:
 		-e "DISPLAY=$(DISPLAY)" \
 		-e "QT_X11_NO_MITSHM=1" \
 		-v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-		-v $(PWD):/opt/infinigen \
+		-v $(PWD)/outputs:/opt/infinigen/outputs \
+		-v $(PWD):/opt/infinigen-local \
 		-e "XAUTHORITY=$(XAUTH)" \
 		-e ROS_IP=127.0.0.1 \
 		--cap-add=SYS_PTRACE \
@@ -69,7 +70,8 @@ docker-run:
 		-e "DISPLAY=$(DISPLAY)" \
 		-e "QT_X11_NO_MITSHM=1" \
 		-v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-		-v $(PWD):/opt/infinigen \
+		-v $(PWD)/outputs:/opt/infinigen/outputs \
+		-v $(PWD):/opt/infinigen-local \
 		-e "XAUTHORITY=$(XAUTH)" \
 		-e ROS_IP=127.0.0.1 \
 		--cap-add=SYS_PTRACE \
