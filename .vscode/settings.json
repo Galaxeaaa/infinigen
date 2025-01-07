@@ -1,5 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/Workspace/infinigen/infinigen/datagen/customgt",
     "python.analysis.exclude": [
         "outputs/**",
         "infinigen.egg-info/**",
