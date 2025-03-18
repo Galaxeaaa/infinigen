@@ -5,9 +5,6 @@ iterate_scene_tasks.n_subcams = 1
 
 iterate_scene_tasks.global_tasks = [
     {'name': 'coarse', 'func': @queue_coarse},
-    {'name': "fineterrain", 'func': @queue_fine_terrain},
-    {'name': "populate", 'func': @queue_populate},
-    {'name': 'backuppopulate', 'func': @renderbackup/queue_populate, 'condition': 'prev_failed'}
 ]
 iterate_scene_tasks.view_dependent_tasks = []
 iterate_scene_tasks.camera_dependent_tasks = []

@@ -926,6 +926,14 @@ if __name__ == "__main__":
         assert output_base.exists(), output_base
 
         args.output_folder = Path(f"outputs/{date_str}_{hostname}")
+    else:
+        last_part = args.output_folder.parts[-1]
+        date_str = datetime.now().strftime("%y-%m-%d-%H-%M-%S-%f")
+        # get the last part of the path
+        if args.output_folder.parts[-1] == "":
+            args.output_folder = args.output_folder.parent
+        args.output_folder = args.output_folder.parent
+        args.output_folder = args.output_folder / f"{last_part}-{date_str}"
 
     overwrite_ok = args.use_existing or args.overwrite
     if args.output_folder.exists() and not overwrite_ok:
