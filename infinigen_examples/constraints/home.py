@@ -60,7 +60,7 @@ def home_room_constraints(fast=False):
 
     # region ROOM SCENE GRAPH CONSTRAINTS/GRAMMAR
 
-    constants = RoomConstants(fixed_contour=False)
+    constants = RoomConstants()
     rooms = cl.scene()[Semantics.RoomContour]
     rg = rooms[Semantics.GroundFloor]
     ru = rooms[-Semantics.GroundFloor]

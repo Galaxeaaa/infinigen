@@ -16,6 +16,7 @@ from infinigen.assets.utils.shapes import (
 )
 from infinigen.core import tags as t
 from infinigen.core.util.random import random_general as rg
+from infinigen.core.constraints import usage_lookup
 
 
 @gin.configurable
@@ -43,6 +44,7 @@ class RoomConstants:
         if room_type is None:
             self.room_types = self.home_room_types
         else:
+            room_type = t.to_tag_set(room_type, fac_context=usage_lookup._factory_lookup)
             self.room_types = room_type
         self.aspect_ratio_range = aspect_ratio_range
         self.fixed_contour = rg(fixed_contour)

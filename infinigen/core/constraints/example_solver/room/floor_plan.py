@@ -4,6 +4,7 @@
 # Authors:
 # - Lingjie Mei
 
+import logging
 import gin
 import numpy as np
 import shapely
@@ -109,6 +110,7 @@ class FloorPlanSolver:
 
             self.widths.append(width)
             self.heights.append(height)
+            logging.info(f"graph: {graph}, width: {width}, height: {height}")
 
     def solve(self):
         state = State(graphs=self.graphs)

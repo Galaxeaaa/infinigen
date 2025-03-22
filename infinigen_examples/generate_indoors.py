@@ -203,11 +203,14 @@ def compose_indoors(output_folder: Path, scene_seed: int, **overrides):
                 **kwargs,
             )
 
+    # Comment out to debug for floorplans
+    # Start
     def solve_large():
         solve_stage_name("on_floor_and_wall", "large")
         solve_stage_name("on_floor_freestanding", "large")
 
     p.run_stage("solve_large", solve_large, use_chance=False, default=state)
+    # End
 
     solved_rooms = [
         state.objs[assignment[cu.variable_room]].obj
@@ -278,6 +281,8 @@ def compose_indoors(output_folder: Path, scene_seed: int, **overrides):
         "animate_cameras", animate_cameras, use_chance=False, prereq="pose_cameras"
     )
 
+    # Comment out to debug for floorplans
+    # Start
     p.run_stage(
         "populate_intermediate_pholders",
         populate.populate_state_placeholders,
@@ -348,6 +353,7 @@ def compose_indoors(output_folder: Path, scene_seed: int, **overrides):
         ),
         use_chance=False,
     )
+    # End
 
     room_meshes = solver.get_bpy_objects(r.Domain({t.Semantics.Room}))
     p.run_stage(

@@ -2,6 +2,7 @@
 # This source code is licensed under the BSD 3-Clause license found in the LICENSE file in the root directory of this source tree.
 
 # Authors: Lingjie Mei
+import logging
 import operator
 from copy import deepcopy
 
@@ -35,7 +36,7 @@ from infinigen.core.util.random import log_uniform
 
 @gin.configurable
 class GraphMaker:
-    def __init__(self, factory_seed, consgraph, level, fast=False):
+    def __init__(self, factory_seed, consgraph, level, fast=False, evaluate=True, slackness=None):
         self.factory_seed = factory_seed
         with FixedSeed(factory_seed):
             self.level = level
@@ -49,7 +50,11 @@ class GraphMaker:
                 consgraph.constants,
             )
             self.max_samples = 1000
-            self.slackness = log_uniform(1.1, 1.3)
+            if slackness is None:
+                self.slackness = log_uniform(1.1, 1.3)
+            else:
+                self.slackness = slackness
+            self.evaluate = evaluate
 
     @property
     def semantics_floor(self):
@@ -185,8 +190,11 @@ class GraphMaker:
                                 obj_st.relations = [RelationState(cl.Traverse(), first)]
                     else:
                         state[n].tags.add(Semantics.Visited)
-                _, viol = evaluate_problem(self.consgraph, state)
-                if viol == 0:
+                if self.evaluate:
+                    _, viol = evaluate_problem(self.consgraph, state)
+                    if viol == 0:
+                        return self.state2graph(state)
+                else:
                     return self.state2graph(state)
 
     def state2graph(self, state):
